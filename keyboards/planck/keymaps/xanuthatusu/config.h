@@ -3,6 +3,14 @@
 
 #include "../../config.h"
 
+#define TAPPING_TERM 200
+
+#ifndef COMBO_TERM
+    #define COMBO_TERM TAPPING_TERM
+#endif
+
+#define COMBO_COUNT 1
+
 #ifdef AUDIO_ENABLE
     //#define STARTUP_SONG SONG(PLANCK_SOUND)
     //#define STARTUP_SONG SONG(ZELDA_PUZZLE)
