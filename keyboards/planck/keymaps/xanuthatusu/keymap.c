@@ -20,22 +20,41 @@
 extern keymap_config_t keymap_config;
 
 enum planck_layers {
-  _QWERTY,
-  _RAISE,
-  _LOWER,
-  _ADJUST,
-  _COLEMAK
+  COLEMAK_LAYER,
+  QWERTY_LAYER,
+  RAISE_LAYER,
+  LOWER_LAYER,
+  ADJUST_LAYER,
+  GUI_LAYER
 };
 
 enum planck_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
+  COLEMAK = SAFE_RANGE,
+  QWERTY,
   LOWER,
   RAISE,
-  BACKLIT
+  GUI_KEY
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+/* Colemak
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * | Esc  |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  "   |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Enter |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Brite| Ctrl | Alt  | GUI  |Lower |Space |Space |Raise | Left | Down |  Up  |Right |
+ * `-----------------------------------------------------------------------------------'
+ */
+[COLEMAK_LAYER] = {
+  {KC_TAB,         KC_Q,    KC_W,    KC_F,    KC_P,  KC_G,    KC_J,                  KC_L,  KC_U,    KC_Y,   KC_SCLN, KC_NO  },
+  {CTL_T(KC_ESC),  KC_A,    KC_R,    KC_S,    KC_T,  KC_D,    KC_H,                  KC_N,  KC_E,    KC_I,   KC_O,    KC_QUOT},
+  {KC_LSPO,        KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,    KC_K,                  KC_M,  KC_COMM, KC_DOT, KC_SLSH, KC_RSPC},
+  {KC_LGUI,        KC_SLEP, KC_CAPS, KC_LALT, LOWER, KC_BSPC, LT(GUI_LAYER, KC_SPC), RAISE, KC_LGUI, KC_NO,  KC_NO,   KC_ENT }
+},
 
 /* Qwerty
  *                ,-----------------------------------------------------------------------------------.
@@ -45,14 +64,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                |------+------+------+------+------+------|------+------+------+------+------+------|
  *   Tap for ( -- |LShift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |RShift|
  *                |------+------+------+------+------+------+------+------+------+------+------+------|
- *                |  Alt |      | Caps |  GUI |Lower |    Space    |Raise |  GUI |      |      |Enter |
+ *                |  Mod |      | Caps |  Alt |Lower |Shift |  GUI |Raise |  Mod |      |      |Enter |
  *                `-----------------------------------------------------------------------------------'
+ *                                                              ^
+ *                                                              |
+ * Tap for Space -----------------------------------------------'
  */
-[_QWERTY] = {
-  {KC_TAB,        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-  {CTL_T(KC_ESC), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {KC_LSPO,       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC},
-  {KC_LALT,       _______, KC_CAPS, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LGUI, _______, _______, KC_ENT }
+[QWERTY_LAYER] = {
+  {KC_TAB,        KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,  KC_Y,                  KC_U,  KC_I,    KC_O,   KC_P,    KC_BSPC},
+  {CTL_T(KC_ESC), KC_A,    KC_S,    KC_D,    KC_F,  KC_G,  KC_H,                  KC_J,  KC_K,    KC_L,   KC_SCLN, KC_QUOT},
+  {KC_LSPO,       KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,  KC_N,                  KC_M,  KC_COMM, KC_DOT, KC_SLSH, KC_RSPC},
+  {KC_LGUI,       KC_SLEP, KC_CAPS, KC_LALT, LOWER, KC_NO, LT(GUI_LAYER, KC_SPC), RAISE, KC_LGUI, KC_NO,  KC_NO,   KC_ENT }
 },
 
 /* Raise
@@ -63,14 +85,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |   _  |   +  |   {  |   }  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_RAISE] = {
-  {LGUI(KC_GRV),  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
-  {KC_DEL,        _______, _______, _______, _______, _______, KC_GRV,  KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
-  {_______,       _______, _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, _______},
-  {_______,       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+[RAISE_LAYER] = {
+  {LGUI(KC_GRV), KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
+  {KC_DEL,       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_GRV,  KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
+  {_______,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, _______},
+  {_______,      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
 /* Lower
@@ -79,15 +101,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Del  | Prev |Vol Dn|Vol Up| Next | Play |      |      |      |Pg Up |Pg Dwn|      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      | Mute |      |      |      | Home | End  |      |
+ * |      |      |      |      |Sleep | Mute |      |      |      | Home | End  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_LOWER] = {
+[LOWER_LAYER] = {
   {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, _______, _______, KC_BSPC},
   {KC_DEL,  KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY, _______, _______, _______, KC_PGUP, KC_PGDN, KC_PIPE},
-  {_______, _______, _______, _______, _______, KC_MUTE, _______, _______, _______, KC_HOME, KC_END,  _______},
+  {_______, _______, _______, _______, KC_OPER, KC_MUTE, _______, _______, _______, KC_HOME, KC_END,  _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
@@ -99,32 +121,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|Qwerty|Colemk|      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_ADJUST] = {
-  {_______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL },
-  {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  _______, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,  _______, _______},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  QWERTY,  COLEMAK, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+[ADJUST_LAYER] = {
+  {_______,       RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL },
+  {CTL_T(KC_ESC), _______, MU_MOD,  AU_ON,   AU_OFF,  _______, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,  _______, _______},
+  {_______,       MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  QWERTY,  COLEMAK, _______, _______, _______},
+  {_______,       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
-/* Colemak
+/* GUI
  * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
+ * |      |      | MS_2 | MS_U | MS_1 |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Esc  |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  "   |
+ * |      |      | MS_L | MS_D | MS_R |      | Left | Down |  Up  |Right |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Enter |
+ * |      |      |      | MS_3 |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_COLEMAK] = {
-  {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
-  {KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
-  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+[GUI_LAYER] = {
+  {KC_NO, KC_NO, KC_BTN2, KC_MS_U, KC_BTN1, KC_WH_U, KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO, KC_NO},
+  {KC_NO, KC_NO, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_NO, KC_NO},
+  {KC_NO, KC_NO, KC_NO,   KC_BTN3, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO, KC_NO},
+  {KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   _______, _______, KC_NO,   KC_NO, KC_NO,   KC_NO, KC_NO}
 }
 
 };
@@ -139,33 +161,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWERTY:
       if (record->event.pressed) {
         print("mode just switched to qwerty and this is a huge string\n");
-        set_single_persistent_default_layer(_QWERTY);
+        set_single_persistent_default_layer(QWERTY_LAYER);
       }
       return false;
       break;
     case LOWER:
       if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        layer_on(LOWER_LAYER);
+        update_tri_layer(LOWER_LAYER, RAISE_LAYER, ADJUST_LAYER);
       } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        layer_off(LOWER_LAYER);
+        update_tri_layer(LOWER_LAYER, RAISE_LAYER, ADJUST_LAYER);
       }
       return false;
       break;
     case RAISE:
       if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        layer_on(RAISE_LAYER);
+        update_tri_layer(LOWER_LAYER, RAISE_LAYER, ADJUST_LAYER);
       } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        layer_off(RAISE_LAYER);
+        update_tri_layer(LOWER_LAYER, RAISE_LAYER, ADJUST_LAYER);
+      }
+      return false;
+      break;
+    case GUI_KEY:
+      if (record->event.pressed) {
+        layer_on(GUI_LAYER);
+      } else {
+        layer_off(GUI_LAYER);
       }
       return false;
       break;
     case COLEMAK:
       if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
+        set_single_persistent_default_layer(COLEMAK_LAYER);
       }
       return false;
       break;
