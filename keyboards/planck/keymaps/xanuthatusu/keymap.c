@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [COLEMAK_LAYER] = {
-  {KC_TAB,         KC_Q,  KC_W,    KC_F,    KC_P,  KC_G,    KC_J,                  KC_L,  KC_U,    KC_Y,   KC_SCLN, LT(FUNC_KEY, KC_DEL)},
+  {KC_TAB,         KC_Q,  KC_W,    KC_F,    KC_P,  KC_G,    KC_J,                  KC_L,  KC_U,    KC_Y,   KC_SCLN, LT(FUNC_LAYER, KC_DEL)},
   {CTL_T(KC_ESC),  KC_A,  KC_R,    KC_S,    KC_T,  KC_D,    KC_H,                  KC_N,  KC_E,    KC_I,   KC_O,    KC_QUOT },
   {KC_LSPO,        KC_Z,  KC_X,    KC_C,    KC_V,  KC_B,    KC_K,                  KC_M,  KC_COMM, KC_DOT, KC_SLSH, KC_RSPC },
   {KC_LGUI,        KC_NO, KC_CAPS, KC_LALT, LOWER, KC_BSPC, LT(GUI_LAYER, KC_SPC), RAISE, KC_LGUI, KC_NO,  KC_NO,   KC_ENT  }
