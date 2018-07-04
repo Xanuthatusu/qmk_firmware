@@ -1,5 +1,8 @@
 /*
-Copyright 2017 Danny Nguyen <danny@keeb.io>
+This is the c configuration file for the keymap
+
+Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2015 Jack Humbert
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "config_common.h"
+#include "../../config.h"
 
 /* Use I2C or Serial, not both */
 

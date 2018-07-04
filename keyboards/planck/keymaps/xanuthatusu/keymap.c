@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [COLEMAK_LAYER] = {
-  {KC_TAB,         KC_Q,  KC_W,    KC_F,    KC_P,  KC_G,    KC_J,                  KC_L,  KC_U,    KC_Y,   KC_SCLN, FUNC_KEY},
+  {KC_TAB,         KC_Q,  KC_W,    KC_F,    KC_P,  KC_G,    KC_J,                  KC_L,  KC_U,    KC_Y,   KC_SCLN, LT(FUNC_KEY, KC_DEL)},
   {CTL_T(KC_ESC),  KC_A,  KC_R,    KC_S,    KC_T,  KC_D,    KC_H,                  KC_N,  KC_E,    KC_I,   KC_O,    KC_QUOT },
   {KC_LSPO,        KC_Z,  KC_X,    KC_C,    KC_V,  KC_B,    KC_K,                  KC_M,  KC_COMM, KC_DOT, KC_SLSH, KC_RSPC },
   {KC_LGUI,        KC_NO, KC_CAPS, KC_LALT, LOWER, KC_BSPC, LT(GUI_LAYER, KC_SPC), RAISE, KC_LGUI, KC_NO,  KC_NO,   KC_ENT  }
@@ -98,25 +98,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {LGUI(KC_GRV), KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______},
   {_______,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_GRV,  KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
   {_______,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, _______},
-  {_______,      _______, _______, _______, _______, KC_DEL,  _______, _______, _______, _______, _______, _______}
+  {_______,      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |      |      | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Del  | Prev |Vol Dn|Vol Up| Next | Play |      |      |      |Pg Up |Pg Dwn|      |
+ * |      | Prev |Vol Dn|Vol Up| Next | Play |      |C_PrtS|PrtSc |Pg Up |Pg Dwn|      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |Sleep | Mute |      |      |      | Home | End  |      |
+ * |      |      |      |      |      | Mute |      |      |      | Home | End  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [LOWER_LAYER] = {
-  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, _______, _______, _______},
-  {_______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY, _______, _______, _______, KC_PGUP, KC_PGDN, KC_PIPE},
-  {_______, _______, _______, _______, KC_OPER, KC_MUTE, _______, _______, _______, KC_HOME, KC_END,  _______},
-  {_______, _______, _______, _______, _______, KC_DEL,  _______, _______, _______, _______, _______, _______}
+  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,       KC_ASTR, _______, _______, _______},
+  {_______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY, _______, RCTL(KC_PSCR), KC_PSCR, KC_PGUP, KC_PGDN, KC_PIPE},
+  {_______, _______, _______, _______, _______, KC_MUTE, _______, _______,       _______, KC_HOME, KC_END,  _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______}
 },
 
 /* Adjust (Lower + Raise)
@@ -149,10 +149,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [GUI_LAYER] = {
-  {KC_NO, KC_NO, KC_BTN2, KC_MS_U, KC_BTN1, KC_WH_U, KC_DOWN, KC_RGHT, KC_NO, KC_NO, KC_NO, KC_NO},
-  {KC_NO, KC_NO, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, KC_LEFT, KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO},
-  {KC_NO, KC_NO, KC_NO,   KC_BTN3, KC_NO,   KC_NO,   KC_UP,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO},
-  {KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   _______, _______, KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO}
+  {KC_NO,   KC_NO, KC_BTN2, KC_MS_U, KC_BTN1, KC_WH_U, KC_DOWN, KC_RGHT, KC_NO, KC_NO, KC_NO, KC_NO},
+  {_______, KC_NO, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, KC_LEFT, KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO},
+  {KC_NO,   KC_NO, KC_NO,   KC_BTN3, KC_NO,   KC_NO,   KC_UP,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO},
+  {_______, KC_NO, KC_NO,   KC_NO,   KC_NO,   _______, _______, KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO}
 },
 
 /* Function
