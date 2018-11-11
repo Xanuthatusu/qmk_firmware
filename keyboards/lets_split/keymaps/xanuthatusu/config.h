@@ -34,4 +34,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 #define EE_HANDS
 
-#endif
+// Mouse key config
+#define MOUSEKEY_DELAY             300
+#define MOUSEKEY_INTERVAL          30
+#define MOUSEKEY_MAX_SPEED         10
+#define MOUSEKEY_TIME_TO_MAX       10
+#define MOUSEKEY_WHEEL_MAX_SPEED   8
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 40
+
+#define TAPPING_TERM 150
+
+#ifndef COMBO_TERM
+  #define COMBO_TERM TAPPING_TERM
+#endif // COMBO_TERM
+
+#endif // CONFIG_USER_H
